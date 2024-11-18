@@ -1,0 +1,72 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+{% block title %}
+{{ post.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid w-100 d-flex align-items-center justify-content-center flex-column gap-4 mt-3">
+        <div class="container border border-opacity-25 border-dark p-5 w-75">
+            <div class="d-flex justify-content-between align-items-start">
+                <h1 class="text-info fw-bold fst-italic" style="font-size: 52px;">{{ post.title }}</h1>
+                <p class="fst-italic lh-1 text-success w-25 text-end mt-4" style="font-size: 16px;"><i class="bi bi-clock-fill"></i> {{ reading_time }} min</p>
+            </div>
+            
+            <p class="fst-italic lh-1" style="font-size: 16px;"><i class="bi bi-person-fill"></i> by: {{ post.author.first_name }} {{ post.author.last_name }}</p>
+            <p class="fst-italic lh-1" style="font-size: 16px;"><i class="bi bi-calendar-fill"></i> published: {{ post.created_at|date:"F j, Y"  }}</p>
+
+            <div class="post-content d-flex flex-column">
+                <p class="fw-semibold" style="font-size: 32px;">{{ post.intro }}</p>
+                    <img class="rounded w-75 d-block mx-auto object-fit-cover" src="{% static 'images/food.jpg' %}" alt="Developer Image" data-aos="zoom-in" data-aos-duration="900">
+                    <div class="lh-base mt-5" style="font-size: 18px; text-indent: 2em;" data-aos="fade-in" data-aos-duration="900">
+                        <p>{{ post.body|linebreaks }}</p> 
+                    </div>     
+            </div>
+            <hr />
+            <div class="card-footer w-100">
+                <div class="w-100 d-flex align-items-center justify-content-evenly mt-2">
+                    <p><i class="bi bi-hand-thumbs-up"></i> React</p>
+                    <p>({{ comment_count }})  <i class="bi bi-chat-right"></i> Comment</p>
+                    <p><i class="bi bi-send-arrow-up"></i> Share</p>
+                </div>
+                <ul class="list-group">
+                    {% for comment in comments %}
+                        <li class="list-group-item mt-2">
+                            <strong>{{ comment.username }}</strong> 
+                            <span class="text-muted" style="font-size: 12px;">{{ comment.created_at|date:"F j, Y, g:i a" }}</span>
+                            <p>{{ comment.content }}</p>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No comments yet. Be the first to comment!</li>
+                    {% endfor %}
+                </ul>
+                
+                <div class="mt-4" id="comment-box">
+                    <h5>Leave a Comment</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="mb-3">
+                            <label for="{{ form.username.id_for_label }}" class="form-label">Name</label>
+                            {{ form.username }}
+                            {{ form.username.errors }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.content.id_for_label }}" class="form-label">Comment</label>
+                            <div class="d-flex gap-3 align-items-center">
+                                {{ form.content }}
+                                {{ form.content.errors }}
+                                <button type="submit" class="btn btn-transparent fs-4"><i class="bi bi-send"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <a href="{% url 'index' %}" class="d-block text-primary fw-light fst-italic text-decoration-none my-5" style="font-size: 13px;"><i class="bi bi-arrow-left"></i> Back Home</a>
+    </div>
+
+{% endblock %}
+

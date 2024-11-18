@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+{% block title %}
+Homepage
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid w-100 d-flex align-items-center justify-content-center flex-column gap-4 mt-3 pb-5">
+        {% for post in posts %}
+            <div class="card w-75" data-aos="fade-up" data-aos-duration="1000">
+                <p class="card-header fs-5 fst-italic"><i class="bi bi-person-fill"></i> Author : {{ post.author.first_name }} {{ post.author.last_name }}</p>
+                <div class="d-flex p-3">
+                    <img class="rounded w-25 img-thumbnail object-fit-cover" src="{% static 'images/food.jpg' %}" alt="Developer Image">
+                    <div class="card-body mx-2">
+                        <div class="d-flex justify-content-between w-100">
+                            <p class="card-text fw-light fst-italic"> {{ post.category }} </p>
+                            <p class="card-text fst-italic fw-bold text-info rounded" style="font-size: 13px; padding: 0; margin: 0;"><i class="bi bi-clock-fill"></i> {{ post.reading_time }} min</p>
+                        </div>
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text"> {{ post.intro }} </p>
+                        <a href="{% url 'post_detail' slug=post.slug %}" class="d-block text-primary fw-light fst-italic text-decoration-none mt-5" style="font-size: 13px;">Continue reading <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="card-footer text-body-black fst-italic" style="font-size: 12px;">
+                    Date Published : {{ post.created_at|date:"F j, Y" }}
+                </div>
+                <hr>
+                <div class="w-100 d-flex align-items-center justify-content-evenly mt-2">
+                    <p><i class="bi bi-hand-thumbs-up"></i> React</p>
+                    <a class="text-decoration-none text-black" href="{% url 'post_detail' slug=post.slug %}"><p class="pe-none">({{ post.comments.count }})  <i class="bi bi-chat-right"></i> Comment</p></a>
+                    <p><i class="bi bi-send-arrow-up"></i> Share</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+

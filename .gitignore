@@ -1,0 +1,25 @@
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+
+# Ignore environment settings
+.env
+env/
+venv/
+*.env
+
+# Ignore Django database
+db.sqlite3
+
+# Ignore uploaded media files
+/media/uploads/
+
+# Ignore system files
+.DS_Store
+
+# Ignore IDE configurations
+.vscode/
+.idea/
+
+# Ignore compiled files
+*.pyc

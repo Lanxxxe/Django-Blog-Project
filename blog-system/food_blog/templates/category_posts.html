@@ -32,7 +32,7 @@ Blog Posts
                 <hr>
                 <div class="w-100 d-flex align-items-center justify-content-evenly mt-2">
                     <p><i class="bi bi-hand-thumbs-up"></i> React</p>
-                    <p>({{ post.comments.count }}) <i class="bi bi-chat-right"></i> Comment</p>
+                    <a class="text-decoration-none text-black" href="{% url 'post_detail' slug=post.slug %}"><p class="pe-none">({{ post.comments.count }})  <i class="bi bi-chat-right"></i> Comment</p></a>
                     <p><i class="bi bi-send-arrow-up"></i> Share</p>
                 </div>
             </div>

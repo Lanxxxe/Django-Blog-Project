@@ -31,6 +31,7 @@
                     <p>({{ comment_count }})  <i class="bi bi-chat-right"></i> Comment</p>
                     <p><i class="bi bi-send-arrow-up"></i> Share</p>
                 </div>
+                <hr />
                 <ul class="list-group">
                     {% for comment in comments %}
                         <li class="list-group-item mt-2">
@@ -44,17 +45,17 @@
                 </ul>
                 
                 <div class="mt-4" id="comment-box">
-                    <h5>Leave a Comment</h5>
+                    <p class="text-secondary">Leave a Comment...</p>
                     <form method="post">
                         {% csrf_token %}
                         {{ form.non_field_errors }}
                         <div class="mb-3">
-                            <label for="{{ form.username.id_for_label }}" class="form-label">Name</label>
+                            <label class="fs-6" for="{{ form.username.id_for_label }}" class="form-label">Name</label>
                             {{ form.username }}
                             {{ form.username.errors }}
                         </div>
                         <div class="mb-3">
-                            <label for="{{ form.content.id_for_label }}" class="form-label">Comment</label>
+                            <label class="fs-6" for="{{ form.content.id_for_label }}" class="form-label">Comment</label>
                             <div class="d-flex gap-3 align-items-center">
                                 {{ form.content }}
                                 {{ form.content.errors }}
